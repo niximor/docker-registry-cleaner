@@ -1,0 +1,6 @@
+str2bool
+python-dateutil
+jsonschema
+PyYAML
+prometheus_client
+requests

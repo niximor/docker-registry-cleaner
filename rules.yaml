@@ -1,0 +1,29 @@
+# This is example rules file defining behavior of cleaner.
+# You can modify it to suit your needs.
+
+# Basic concepts are:
+#   - When repository does not match any rule, it is left untouched
+#   - When tag does not match any rule, it is left untouched
+#   - Rules are evaluated from top to bottom, first match is applied.
+#   - Tag rules are evaluated from top to bottom, first match is applied.
+#   - Only one action can be specified per tag (last, maxAge, keep). Not combination.
+
+# The rules are processed from first to last. First matched rule wins.
+rules:
+  # Matches all repositories by default
+  - repoRegExp: "."
+    # Tags are processed from first to last. First matched rule wins.
+    tags:
+      # Last 5 version-like tags are kept
+      - name: versions
+        tagRegExp: '^v\d+\.\d+\.\d+'
+        last: 5
+      # GIT commit tags are kept from last 14 days
+      - name: commits
+        tagRegExp: '^[0-9a-fA-F]{40}$'
+        maxAge: 14d
+        last: 1
+      # Other tags are kept as is.
+      - name: others
+        tagRegExp: '.'
+        keep: true
